@@ -65,6 +65,9 @@ func (m *TransactionsMapStorage) Get(address string) ([]eth.Transaction, error) 
 	m.storageMu.RUnlock()
 
 	if m.resetAfterGet {
+		// I arguably decided that it's better to obtain separate lock for
+		// delete operation here, than to prevent any kind of race with single
+		// lock for the whole function.
 		m.storageMu.Lock()
 		delete(m.storage, address)
 		m.storageMu.Unlock()
