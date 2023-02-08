@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "4beb2bc8-dcbd-4ca2-b2e5-32143e2fa869",
+		"name": "ETH Parser",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Current Block",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Current Block\", function() {",
+							"    pm.response.to.have.status(200)",
+							"",
+							"    let number = parseInt(pm.response.text(), 10);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{parserUrl}}/current_block",
+					"host": [
+						"{{parserUrl}}"
+					],
+					"path": [
+						"current_block"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscribe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Current Block\", function() {",
+							"    pm.response.to.have.status(200)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{parserUrl}}/subscribe?address=some_hash",
+					"host": [
+						"{{parserUrl}}"
+					],
+					"path": [
+						"subscribe"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "some_hash"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscribe Empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Current Block\", function() {",
+							"    pm.response.to.have.status(400)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{parserUrl}}/subscribe?address=",
+					"host": [
+						"{{parserUrl}}"
+					],
+					"path": [
+						"subscribe"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transactions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Current Block\", function() {",
+							"    pm.response.to.have.status(204)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{parserUrl}}/transactions?address=some_hash",
+					"host": [
+						"{{parserUrl}}"
+					],
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "some_hash"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transactions For Unknown Address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Current Block\", function() {",
+							"    pm.response.to.have.status(204)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{parserUrl}}/transactions?address=another_hash",
+					"host": [
+						"{{parserUrl}}"
+					],
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "another_hash"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
